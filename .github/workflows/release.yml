@@ -15,10 +15,10 @@ jobs:
         uses: kewisch/action-web-ext@v1
         with:
           cmd: build
-          source: .
+          source: ./
       
       - name: build zip
         uses: papeloto/action-zip@v1
         with:
-          files: .
+          files: ./
           dest: result.zip
