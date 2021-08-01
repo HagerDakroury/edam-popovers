@@ -10,18 +10,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: build zip
+        uses: papeloto/action-zip@v1
+        with:
+          files: .
+          dest: result.zip
+
       - name: build xpi
         id: web-ext-build
         uses: kewisch/action-web-ext@v1
         with:
           cmd: build
           source: .
-      
-      - name: build zip
-        uses: papeloto/action-zip@v1
+            - name: "Upload Artifact"
+        uses: actions/upload-artifact@master
         with:
-          files: .
-          dest: result.zip
+          name: target.xpi
+          path: ${{ steps.web-ext-build.outputs.target }}
+
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
